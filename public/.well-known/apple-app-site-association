@@ -1,0 +1,15 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "6742379894.com.example.appdiscos",
+        "paths": [
+          "/*/p/*",
+          "/*/p/*/e/*"
+        ]
+      }
+    ]
+  }
+}
+

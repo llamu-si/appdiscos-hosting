@@ -1,0 +1,13 @@
+[
+  {
+    "relation": [ "delegate_permission/common.handle_all_urls" ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.example.appdiscos",
+      "sha256_cert_fingerprints": [
+        "1e:7d:b2:87:0f:e2:82:c1:15:4e:9e:15:47:91:80:b3:97:18:b9:3d:92:0e:15:5d:2b:06:c9:16:cd:56:21:6a",   // Play App Signing (release)
+        "11:22:33:...:99"   // Keystore upload/CI (opcional)
+      ]
+    }
+  }
+]
