@@ -17,7 +17,7 @@
       }
     ],
     "rewrites": [
-      { "source": "/:cc/p/**", "function": "deeplinkOg" }
+      { "source": "/:cc/p/**", "function": "deeplinkOg", "region": "europe-southwest1" }
     ]
   }
 }
