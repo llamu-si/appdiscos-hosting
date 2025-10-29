@@ -5,8 +5,7 @@
       "namespace": "android_app",
       "package_name": "com.example.appdiscos",
       "sha256_cert_fingerprints": [
-        "1e:7d:b2:87:0f:e2:82:c1:15:4e:9e:15:47:91:80:b3:97:18:b9:3d:92:0e:15:5d:2b:06:c9:16:cd:56:21:6a",   // Play App Signing (release)
-        "11:22:33:...:99"   // Keystore upload/CI (opcional)
+        "1E:7D:B2:87:0F:E2:82:C1:15:4E:9E:15:47:91:80:B3:97:18:B9:3D:92:0E:15:5D:2B:06:C9:16:CD:56:21:6A",   // Play App Signing (release)
       ]
     }
   }
