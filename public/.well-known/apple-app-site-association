@@ -3,10 +3,14 @@
     "apps": [],
     "details": [
       {
-        "appID": "6742379894.com.example.appdiscos",
-        "paths": [ "/es/p/*", "/*/p/*" ]
+        "appID": "6BNZF7WR3K.com.example.appdiscos",
+        "paths": [
+          "/p/*",
+          "/*/p/*",
+          "/p/*/e/*",
+          "/*/p/*/e/*"
+        ]
       }
     ]
   }
 }
-
