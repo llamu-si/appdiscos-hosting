@@ -5,10 +5,10 @@
       {
         "appID": "6BNZF7WR3K.com.example.appdiscos",
         "paths": [
-          "/p/*",
+          "/*/p/*/e/*",
           "/*/p/*",
-          "/p/*/e/*",
-          "/*/p/*/e/*"
+          "/es/p/*/e/*",
+          "/es/p/*"
         ]
       }
     ]
