@@ -1,89 +1,575 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>DNightUp – La noche conectada</title>
+    <meta name="description"
+          content="DNightUp conecta locales, eventos y personas para que cada noche se llene de las personas adecuadas. Gestión de listas VIP, acceso con QR y más." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/12.4.0/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/12.4.0/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/12.4.0/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/12.4.0/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/12.4.0/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/12.4.0/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/12.4.0/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/12.4.0/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/12.4.0/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/12.4.0/firebase-performance-compat.js"></script>
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+    <!-- Open Graph básico -->
+    <meta property="og:title" content="DNightUp – La noche conectada" />
+    <meta property="og:description"
+          content="La plataforma que ayuda a tu local a llenar la noche con las personas adecuadas." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.dnightup.com" />
+    <!-- Cuando tengas logo/imagen de portada, actualiza esta URL -->
+    <meta property="og:image" content="https://www.dnightup.com/og-image.jpg" />
 
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
+    <!-- Tailwind CDN (para empezar; más adelante se puede pasar a build propia) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "dnu-ocre": "#F6B352",
+                        "dnu-ocre-soft": "#f9c679",
+                        "dnu-dark": "#020617",
+                        "dnu-glass": "rgba(15,23,42,0.85)",
+                    },
+                },
+            },
+        };
+    </script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Fondo aurora sencillo */
+        .aurora-bg {
+            background: radial-gradient(circle at top, #22d3ee33 0, transparent 60%), radial-gradient(circle at 20% 80%, #a855f733 0, transparent 55%), radial-gradient(circle at 80% 50%, #f9731633 0, transparent 55%), #020617;
+        }
+
+        .glass {
+            background: linear-gradient( 135deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.6) );
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            backdrop-filter: blur(18px);
+        }
     </style>
-  </head>
-  <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+</head>
+<body class="aurora-bg text-slate-50 min-h-screen">
+    <!-- Fondo decorativo -->
+    <div class="pointer-events-none fixed inset-0 opacity-40 mix-blend-screen"
+         aria-hidden="true">
+        <div class="absolute -top-32 left-10 h-72 w-72 rounded-full bg-cyan-400 blur-3xl"></div>
+        <div class="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-fuchsia-500 blur-3xl"></div>
     </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
+
+    <!-- Contenedor principal -->
+    <div class="relative z-10">
+        <!-- NAVBAR -->
+        <header class="sticky top-0 z-20 border-b border-slate-800/60 bg-black/60 backdrop-blur-xl">
+            <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+                <a href="#hero" class="flex items-center gap-2">
+                    <!-- Logo placeholder -->
+                    <div class="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-tr from-dnu-ocre to-amber-300 text-sm font-bold text-black">
+                        D
+                    </div>
+                    <span class="text-lg font-semibold tracking-tight">
+                        DNightUp
+                    </span>
+                </a>
+
+                <div class="hidden items-center gap-6 text-sm md:flex">
+                    <a href="#locales" class="hover:text-dnu-ocre-soft">Locales</a>
+                    <a href="#app" class="hover:text-dnu-ocre-soft">La app</a>
+                    <a href="#tecnologia" class="hover:text-dnu-ocre-soft">Tecnología</a>
+                    <a href="#contacto" class="hover:text-dnu-ocre-soft">Contacto</a>
+                    <a href="#contacto"
+                       class="rounded-full border border-dnu-ocre/60 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-dnu-ocre hover:bg-dnu-ocre hover:text-black">
+                        Soy un local
+                    </a>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            <!-- HERO -->
+            <section id="hero"
+                     class="mx-auto flex max-w-6xl flex-col gap-10 px-4 pb-20 pt-12 md:flex-row md:items-center md:pt-16 lg:gap-16">
+                <!-- Columna texto -->
+                <div class="md:w-1/2">
+                    <p class="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-dnu-ocre-soft">
+                        Plataforma para locales de ocio nocturno
+                    </p>
+                    <h1 class="mb-4 text-3xl font-semibold leading-tight sm:text-4xl lg:text-5xl">
+                        Haz que tu local se llene
+                        <span class="text-dnu-ocre">de las personas adecuadas</span>
+                    </h1>
+                    <p class="mb-6 max-w-xl text-sm text-slate-300 sm:text-base">
+                        DNightUp conecta tus eventos con el público que quiere vivirlos,
+                        te ayuda a gestionar listas VIP y accesos con QR, y convierte cada
+                        noche en una oportunidad para fidelizar clientes.
+                    </p>
+
+                    <div class="mb-4 flex flex-wrap items-center gap-3">
+                        <a href="#contacto"
+                           class="inline-flex items-center justify-center rounded-full bg-dnu-ocre px-6 py-2 text-sm font-semibold text-black shadow-lg shadow-amber-500/25 hover:bg-dnu-ocre-soft">
+                            Soy un local – Quiero más info
+                        </a>
+                        <a href="#como-funciona"
+                           class="inline-flex items-center justify-center rounded-full border border-slate-500/60 px-5 py-2 text-sm font-semibold text-slate-100 hover:border-dnu-ocre/80">
+                            Ver cómo funciona
+                        </a>
+                    </div>
+
+                    <p class="text-xs text-slate-400">
+                        Empezamos con locales seleccionados para construir casos de éxito
+                        reales.
+                    </p>
+                </div>
+
+                <!-- Columna mockup -->
+                <div class="md:w-1/2">
+                    <div class="glass relative mx-auto h-[460px] max-w-xs rounded-3xl p-4 shadow-2xl shadow-black/70">
+                        <!-- Borde de móvil -->
+                        <div class="absolute inset-0 rounded-3xl border border-slate-100/10"
+                             aria-hidden="true"></div>
+
+                        <!-- Contenido simulado de la app -->
+                        <div class="mt-4 flex items-center justify-between px-2">
+                            <div>
+                                <p class="text-xs uppercase tracking-[0.2em] text-dnu-ocre-soft">
+                                    Evento destacado
+                                </p>
+                                <p class="text-sm font-semibold">Glow Night Session</p>
+                            </div>
+                            <span class="rounded-full bg-slate-900/80 px-2 py-1 text-[10px] font-semibold text-emerald-300">
+                                Hoy · 23:30
+                            </span>
+                        </div>
+
+                        <div class="mt-4 overflow-hidden rounded-2xl">
+                            <div class="flex h-48 items-end bg-gradient-to-t from-black/80 via-black/30 to-transparent bg-[url('https://images.pexels.com/photos/3380610/pexels-photo-3380610.jpeg')] bg-cover bg-center">
+                                <div class="w-full p-3">
+                                    <div class="flex items-center justify-between text-xs">
+                                        <span class="rounded-full bg-black/70 px-2 py-1 text-amber-300">
+                                            Club Aurora
+                                        </span>
+                                        <span class="rounded-full bg-black/70 px-2 py-1 text-slate-100">
+                                            +124 interesados
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 space-y-3 text-xs text-slate-200">
+                            <div class="flex items-center justify-between">
+                                <span class="flex items-center gap-1">
+                                    <span class="inline-block h-2 w-2 rounded-full bg-emerald-400"></span>
+                                    Acceso con QR VIP
+                                </span>
+                                <span class="text-slate-400">Listas · Invitados</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="flex items-center gap-1">
+                                    <span class="inline-flex h-5 w-5 items-center justify-center rounded-full bg-slate-900">
+                                        💛
+                                    </span>
+                                    Likes & matches entre asistentes
+                                </span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="flex items-center gap-1">
+                                    <span class="inline-flex h-5 w-5 items-center justify-center rounded-full bg-slate-900">
+                                        📍
+                                    </span>
+                                    Filtrado por cercanía
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 flex justify-center">
+                            <div class="inline-flex items-center gap-2 rounded-full bg-slate-900/80 px-4 py-1.5 text-[11px] text-slate-300">
+                                <span class="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-400/10 text-emerald-300">
+                                    ✔
+                                </span>
+                                <span>La noche de tu local, conectada y bajo control</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DNightUp en 30 segundos -->
+            <section class="mx-auto max-w-6xl px-4 pb-16"
+                     aria-labelledby="dnu-30s-title">
+                <h2 id="dnu-30s-title"
+                    class="mb-6 text-center text-2xl font-semibold sm:text-3xl">
+                    DNightUp en 30 segundos
+                </h2>
+                <p class="mx-auto mb-10 max-w-2xl text-center text-sm text-slate-300">
+                    DNightUp es la plataforma que conecta
+                    <strong>locales</strong>, <strong>eventos</strong> y
+                    <strong>personas</strong> para que cada noche tengas más control,
+                    más información y más fidelización.
+                </p>
+
+                <div class="grid gap-6 md:grid-cols-3">
+                    <article class="glass rounded-2xl p-5">
+                        <h3 class="mb-2 text-sm font-semibold tracking-wide text-dnu-ocre">
+                            Locales
+                        </h3>
+                        <p class="text-sm text-slate-200">
+                            Centraliza toda la actividad de tu club, pub o festival en un
+                            único panel. Publica eventos, gestiona listas VIP y entiende
+                            mejor a tu público.
+                        </p>
+                    </article>
+                    <article class="glass rounded-2xl p-5">
+                        <h3 class="mb-2 text-sm font-semibold tracking-wide text-dnu-ocre">
+                            Eventos
+                        </h3>
+                        <p class="text-sm text-slate-200">
+                            Crea, publica y destaca tus eventos en un feed visual tipo reel.
+                            Tus fiestas se presentan como se viven: en movimiento.
+                        </p>
+                    </article>
+                    <article class="glass rounded-2xl p-5">
+                        <h3 class="mb-2 text-sm font-semibold tracking-wide text-dnu-ocre">
+                            Personas (VIP)
+                        </h3>
+                        <p class="text-sm text-slate-200">
+                            Convierte asistentes en comunidad con listas VIP, diferentes
+                            niveles, accesos con QR y una capa social de likes y matches.
+                        </p>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Para locales: qué ganas -->
+            <section id="locales"
+                     class="mx-auto max-w-6xl px-4 pb-16"
+                     aria-labelledby="locales-title">
+                <h2 id="locales-title"
+                    class="mb-6 text-center text-2xl font-semibold sm:text-3xl">
+                    Qué gana tu local con DNightUp
+                </h2>
+
+                <div class="grid gap-6 md:grid-cols-2">
+                    <article class="glass rounded-2xl p-5">
+                        <h3 class="mb-1 text-sm font-semibold text-dnu-ocre">
+                            Más previsión, menos improvisación
+                        </h3>
+                        <p class="text-sm text-slate-200">
+                            Sabrás cuánta gente está interesada en tus eventos antes de que
+                            empiecen. Planifica mejor equipo, barras y promociones.
+                        </p>
+                    </article>
+                    <article class="glass rounded-2xl p-5">
+                        <h3 class="mb-1 text-sm font-semibold text-dnu-ocre">
+                            VIPs y listas bajo control
+                        </h3>
+                        <p class="text-sm text-slate-200">
+                            Crea y gestiona listas VIP desde el móvil. Genera QR
+                            personalizados y olvídate de hojas de cálculo o papeles en
+                            puerta.
+                        </p>
+                    </article>
+                    <article class="glass rounded-2xl p-5">
+                        <h3 class="mb-1 text-sm font-semibold text-dnu-ocre">
+                            Público que vuelve
+                        </h3>
+                        <p class="text-sm text-slate-200">
+                            Identifica qué eventos funcionan mejor, quién repite y qué tipo
+                            de público atrae tu programación. Diseña tus noches con datos.
+                        </p>
+                    </article>
+                    <article class="glass rounded-2xl p-5">
+                        <h3 class="mb-1 text-sm font-semibold text-dnu-ocre">
+                            Imagen digital a la altura de tu noche
+                        </h3>
+                        <p class="text-sm text-slate-200">
+                            Tus eventos se presentan en vídeo y con una estética cuidada,
+                            alineada con la experiencia que ofreces en sala.
+                        </p>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Cómo funciona -->
+            <section id="como-funciona"
+                     class="mx-auto max-w-6xl px-4 pb-16"
+                     aria-labelledby="como-title">
+                <h2 id="como-title"
+                    class="mb-6 text-center text-2xl font-semibold sm:text-3xl">
+                    Cómo funciona para tu local
+                </h2>
+
+                <div class="glass mx-auto max-w-4xl rounded-3xl px-6 py-8 sm:px-10 sm:py-10">
+                    <ol class="space-y-6">
+                        <li class="flex gap-4">
+                            <div class="mt-1 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-dnu-ocre text-sm font-bold text-black">
+                                1
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-semibold text-dnu-ocre">
+                                    Publica tus eventos
+                                </h3>
+                                <p class="text-sm text-slate-200">
+                                    Crea tus eventos con foto o vídeo, descripción, fechas y
+                                    condiciones de acceso en cuestión de minutos. Todo desde la
+                                    app.
+                                </p>
+                            </div>
+                        </li>
+                        <li class="flex gap-4">
+                            <div class="mt-1 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-dnu-ocre text-sm font-bold text-black">
+                                2
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-semibold text-dnu-ocre">
+                                    Activa tu comunidad VIP
+                                </h3>
+                                <p class="text-sm text-slate-200">
+                                    Crea usuarios VIP con distintos niveles (Bronce, Plata, Oro)
+                                    y envía invitaciones con su QR de acceso personalizado.
+                                </p>
+                            </div>
+                        </li>
+                        <li class="flex gap-4">
+                            <div class="mt-1 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-dnu-ocre text-sm font-bold text-black">
+                                3
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-semibold text-dnu-ocre">
+                                    Controla accesos y resultados
+                                </h3>
+                                <p class="text-sm text-slate-200">
+                                    Valida accesos en puerta con QR, controla la asistencia real
+                                    y aprende qué eventos y qué tipo de público te funcionan
+                                    mejor.
+                                </p>
+                            </div>
+                        </li>
+                    </ol>
+
+                    <div class="mt-6 flex justify-center">
+                        <a href="#contacto"
+                           class="inline-flex items-center justify-center rounded-full bg-dnu-ocre px-6 py-2 text-sm font-semibold text-black hover:bg-dnu-ocre-soft">
+                            Quiero ver una demo
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Lo que ve el público (La app) -->
+            <section id="app"
+                     class="mx-auto max-w-6xl px-4 pb-16"
+                     aria-labelledby="app-title">
+                <h2 id="app-title"
+                    class="mb-6 text-center text-2xl font-semibold sm:text-3xl">
+                    Lo que verán tus clientes en la app
+                </h2>
+
+                <div class="grid gap-6 md:grid-cols-3">
+                    <article class="glass rounded-2xl p-5">
+                        <h3 class="mb-1 text-sm font-semibold text-dnu-ocre">
+                            Feed tipo reel
+                        </h3>
+                        <p class="text-sm text-slate-200">
+                            Tus eventos aparecen en un reel visual con fotos y vídeos, fácil
+                            de explorar y pensado para la forma en que hoy se consume
+                            contenido.
+                        </p>
+                    </article>
+                    <article class="glass rounded-2xl p-5">
+                        <h3 class="mb-1 text-sm font-semibold text-dnu-ocre">
+                            Asistencia y notificaciones
+                        </h3>
+                        <p class="text-sm text-slate-200">
+                            Pueden marcar interés/asistencia, recibir notificaciones cuando
+                            lanzas nuevos eventos y no perderse nada de lo que pasa en tu
+                            local.
+                        </p>
+                    </article>
+                    <article class="glass rounded-2xl p-5">
+                        <h3 class="mb-1 text-sm font-semibold text-dnu-ocre">
+                            QR y modo incógnito
+                        </h3>
+                        <p class="text-sm text-slate-200">
+                            Acceso con QR y opción de asistencia oculta para quien prefiere
+                            discreción. Tu local gana información sin forzar exposición.
+                        </p>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Tecnología -->
+            <section id="tecnologia"
+                     class="mx-auto max-w-6xl px-4 pb-16"
+                     aria-labelledby="tech-title">
+                <h2 id="tech-title"
+                    class="mb-6 text-center text-2xl font-semibold sm:text-3xl">
+                    Tecnología pensada para escalar con tu noche
+                </h2>
+
+                <div class="grid gap-6 md:grid-cols-2">
+                    <article class="glass rounded-2xl p-5">
+                        <h3 class="mb-1 text-sm font-semibold text-dnu-ocre">
+                            Infraestructura en la nube
+                        </h3>
+                        <p class="text-sm text-slate-200">
+                            DNightUp está construido sobre Firebase y Cloud Functions, con
+                            una arquitectura preparada para crecer contigo sin que te
+                            preocupes de servidores.
+                        </p>
+                    </article>
+                    <article class="glass rounded-2xl p-5">
+                        <h3 class="mb-1 text-sm font-semibold text-dnu-ocre">
+                            Notificaciones con deep links
+                        </h3>
+                        <p class="text-sm text-slate-200">
+                            Cuando lanzas un nuevo evento, tus usuarios reciben una
+                            notificación que les lleva directamente a la ficha del evento en
+                            la app.
+                        </p>
+                    </article>
+                    <article class="glass rounded-2xl p-5">
+                        <h3 class="mb-1 text-sm font-semibold text-dnu-ocre">
+                            Mapas y ubicación
+                        </h3>
+                        <p class="text-sm text-slate-200">
+                            Tus locales y eventos aparecen geolocalizados. Descubrir dónde
+                            salir se vuelve tan fácil como abrir el mapa.
+                        </p>
+                    </article>
+                    <article class="glass rounded-2xl p-5">
+                        <h3 class="mb-1 text-sm font-semibold text-dnu-ocre">
+                            Seguridad y privacidad
+                        </h3>
+                        <p class="text-sm text-slate-200">
+                            Gestión de roles, accesos con QR y un diseño orientado a
+                            cumplir con la normativa de protección de datos desde el inicio.
+                        </p>
+                    </article>
+                </div>
+            </section>
+
+            <!-- CTA + Formulario -->
+            <section id="contacto"
+                     class="mx-auto max-w-4xl px-4 pb-20"
+                     aria-labelledby="contact-title">
+                <div class="glass rounded-3xl px-6 py-8 sm:px-10 sm:py-10">
+                    <h2 id="contact-title"
+                        class="mb-3 text-center text-2xl font-semibold sm:text-3xl">
+                        ¿Quieres DNightUp en tu local?
+                    </h2>
+                    <p class="mx-auto mb-8 max-w-xl text-center text-sm text-slate-300">
+                        Déjanos tus datos y te contactaremos para enseñarte cómo podría
+                        funcionar DNightUp en tu sala. Sin compromiso.
+                    </p>
+
+                    <form action="#"
+                          method="post"
+                          class="grid gap-4 sm:grid-cols-2">
+                        <div class="sm:col-span-1">
+                            <label for="nombre" class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-300">
+                                Nombre y apellidos
+                            </label>
+                            <input type="text"
+                                   id="nombre"
+                                   name="nombre"
+                                   required
+                                   class="w-full rounded-lg border border-slate-600 bg-slate-900/60 px-3 py-2 text-sm text-slate-50 placeholder-slate-500 outline-none focus:border-dnu-ocre"
+                                   placeholder="Ej. Laura García" />
+                        </div>
+                        <div class="sm:col-span-1">
+                            <label for="local" class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-300">
+                                Nombre del local
+                            </label>
+                            <input type="text"
+                                   id="local"
+                                   name="local"
+                                   required
+                                   class="w-full rounded-lg border border-slate-600 bg-slate-900/60 px-3 py-2 text-sm text-slate-50 placeholder-slate-500 outline-none focus:border-dnu-ocre"
+                                   placeholder="Ej. Club Aurora" />
+                        </div>
+                        <div class="sm:col-span-1">
+                            <label for="ciudad" class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-300">
+                                Ciudad / Zona
+                            </label>
+                            <input type="text"
+                                   id="ciudad"
+                                   name="ciudad"
+                                   class="w-full rounded-lg border border-slate-600 bg-slate-900/60 px-3 py-2 text-sm text-slate-50 placeholder-slate-500 outline-none focus:border-dnu-ocre"
+                                   placeholder="Ej. Palma de Mallorca" />
+                        </div>
+                        <div class="sm:col-span-1">
+                            <label for="email" class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-300">
+                                Email
+                            </label>
+                            <input type="email"
+                                   id="email"
+                                   name="email"
+                                   required
+                                   class="w-full rounded-lg border border-slate-600 bg-slate-900/60 px-3 py-2 text-sm text-slate-50 placeholder-slate-500 outline-none focus:border-dnu-ocre"
+                                   placeholder="Ej. info@tuclub.com" />
+                        </div>
+                        <div class="sm:col-span-1">
+                            <label for="telefono" class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-300">
+                                Teléfono
+                            </label>
+                            <input type="tel"
+                                   id="telefono"
+                                   name="telefono"
+                                   class="w-full rounded-lg border border-slate-600 bg-slate-900/60 px-3 py-2 text-sm text-slate-50 placeholder-slate-500 outline-none focus:border-dnu-ocre"
+                                   placeholder="Opcional" />
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label for="mensaje" class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-300">
+                                Mensaje
+                            </label>
+                            <textarea id="mensaje"
+                                      name="mensaje"
+                                      rows="4"
+                                      class="w-full rounded-lg border border-slate-600 bg-slate-900/60 px-3 py-2 text-sm text-slate-50 placeholder-slate-500 outline-none focus:border-dnu-ocre"
+                                      placeholder="Cuéntanos un poco sobre tu local, qué tipo de eventos haces y qué te gustaría conseguir con DNightUp."></textarea>
+                        </div>
+
+                        <div class="sm:col-span-2 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                            <label class="inline-flex items-center gap-2 text-xs text-slate-300">
+                                <input type="checkbox"
+                                       name="novedades"
+                                       class="h-4 w-4 rounded border-slate-500 bg-slate-900 text-dnu-ocre focus:ring-dnu-ocre" />
+                                Quiero recibir novedades de DNightUp.
+                            </label>
+                            <button type="submit"
+                                    class="inline-flex items-center justify-center rounded-full bg-dnu-ocre px-6 py-2 text-sm font-semibold text-black hover:bg-dnu-ocre-soft">
+                                Solicitar demo
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="border-t border-slate-800/60 bg-black/60">
+            <div class="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-5 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between">
+                <div class="flex items-center gap-2">
+                    <span class="font-semibold text-slate-200">DNightUp</span>
+                    <span>© <span id="year"></span></span>
+                </div>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#" class="hover:text-dnu-ocre-soft">Aviso legal</a>
+                    <a href="#" class="hover:text-dnu-ocre-soft">Política de privacidad</a>
+                    <a href="#" class="hover:text-dnu-ocre-soft">Política de cookies</a>
+                    <!-- Cuando tengas redes, añade enlaces aquí -->
+                    <!-- <a href="#" class="hover:text-dnu-ocre-soft">Instagram</a> -->
+                </div>
+            </div>
+        </footer>
+    </div>
 
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadEl = document.querySelector('#load');
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
-        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-
-        try {
-          let app = firebase.app();
-          let features = [
-            'auth', 
-            'database', 
-            'firestore',
-            'functions',
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
-        }
-      });
+        // Año actual en el footer
+        document.getElementById("year").textContent =
+            new Date().getFullYear().toString();
     </script>
-  </body>
+</body>
 </html>
