@@ -13,10 +13,9 @@
           content="La plataforma que ayuda a tu local a llenar la noche con las personas adecuadas." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.dnightup.com" />
-    <!-- Cuando tengas logo/imagen de portada, actualiza esta URL -->
     <meta property="og:image" content="https://www.dnightup.com/og-image.jpg" />
 
-    <!-- Tailwind CDN (para empezar; más adelante se puede pasar a build propia) -->
+    <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -116,9 +115,7 @@
                         </a>
                     </div>
 
-                    <p class="text-xs text-slate-400">
-                        
-                    </p>
+                    <p class="text-xs text-slate-400"></p>
                 </div>
 
                 <!-- Columna mockup -->
@@ -141,16 +138,24 @@
                             </span>
                         </div>
 
+                        <!-- Foto del evento en el mockup -->
                         <div class="mt-4 overflow-hidden rounded-2xl">
-                            <div class="flex h-48 items-end bg-gradient-to-t from-black/80 via-black/30 to-transparent bg-[url('https://www.dnightup.com/imagenes/cartel-mad-cool-2026.webp')] bg-cover bg-center">
-                                <div class="w-full p-3">
-                                    <div class="flex items-center justify-between text-xs">
-                                        <span class="rounded-full bg-black/70 px-2 py-1 text-dnu-ocre-soft">
-                                            10 Aniversario
-                                        </span>
-                                        <span class="rounded-full bg-black/70 px-2 py-1 text-slate-100">
-                                            +12.4 mil interesados
-                                        </span>
+                            <div class="relative h-48">
+                                <img src="/imagenes/cartel-mad-cool-2026.webp"
+                                     alt="Cartel Mad Cool 2026"
+                                     class="h-full w-full object-cover" />
+                                <!-- Degradado y chips encima -->
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                                <div class="absolute inset-0 flex items-end">
+                                    <div class="w-full p-3">
+                                        <div class="flex items-center justify-between text-xs">
+                                            <span class="rounded-full bg-black/70 px-2 py-1 text-dnu-ocre-soft">
+                                                10 Aniversario
+                                            </span>
+                                            <span class="rounded-full bg-black/70 px-2 py-1 text-slate-100">
+                                                +12.4 mil interesados
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -205,18 +210,33 @@
                 </p>
 
                 <div class="grid gap-6 md:grid-cols-3">
+                    <!-- LOCALES -->
                     <article class="glass rounded-2xl p-5">
+                        <div class="mb-3 h-28 overflow-hidden rounded-xl">
+                            <img src="/imagenes/locales.webp"
+                                 alt="Locales DNightUp"
+                                 class="h-full w-full object-cover"
+                                 loading="lazy" />
+                        </div>
                         <h3 class="mb-2 text-sm font-semibold tracking-wide text-dnu-ocre">
                             Locales
                         </h3>
                         <p class="text-sm text-slate-200">
                             Centraliza toda la actividad de tu club, pub o festival en una
-                            única plataforma. Destaca toda la información relevante: fotos, ubicación, horarios... 
-                            y conviertete en un lugar de referencia.
-                            Conoce el público que te sigue para que les puedas informar sobre nuevos eventos. 
+                            única plataforma. Destaca toda la información relevante: fotos, ubicación, horarios...
+                            y conviértete en un lugar de referencia.
+                            Conoce el público que te sigue para que les puedas informar sobre nuevos eventos.
                         </p>
                     </article>
+
+                    <!-- EVENTOS -->
                     <article class="glass rounded-2xl p-5">
+                        <div class="mb-3 h-28 overflow-hidden rounded-xl">
+                            <img src="/imagenes/eventos.webp"
+                                 alt="Eventos DNightUp"
+                                 class="h-full w-full object-cover"
+                                 loading="lazy" />
+                        </div>
                         <h3 class="mb-2 text-sm font-semibold tracking-wide text-dnu-ocre">
                             Eventos
                         </h3>
@@ -224,17 +244,25 @@
                             Crea, publica y destaca tus eventos en un feed visual tipo
                             reel, y deja que el efecto red haga todo lo demás.
                             Notifica a tus seguidores a través de la app para que puedan
-                            planificar sus salidas. Gestiona los accesos y conoce mejor a tú público.
+                            planificar sus salidas. Gestiona los accesos y conoce mejor a tu público.
                         </p>
                     </article>
+
+                    <!-- PERSONAS -->
                     <article class="glass rounded-2xl p-5">
+                        <div class="mb-3 h-28 overflow-hidden rounded-xl">
+                            <img src="/imagenes/personas.webp"
+                                 alt="Personas en DNightUp"
+                                 class="h-full w-full object-cover"
+                                 loading="lazy" />
+                        </div>
                         <h3 class="mb-2 text-sm font-semibold tracking-wide text-dnu-ocre">
                             Personas
                         </h3>
                         <p class="text-sm text-slate-200">
                             Convierte a tus asistentes en comunidad. Gestiona lo que consumen a través de la
                             app para poder darles un trato diferencial. Fideliza a tus mejores clientes
-                            con invitaciones. Y deja que la magia del amor fluya entre ellos con la  
+                            con invitaciones. Y deja que la magia del amor fluya entre ellos con la
                             capa social de likes y matches de DNightUp.
                         </p>
                     </article>
@@ -256,9 +284,9 @@
                             Más visibilidad, nuevos clientes
                         </h3>
                         <p class="text-sm text-slate-200">
-                            Accede al público que no llegas a través de tus canales. 
-                            DNightUp es el escaparate perfecto para atraer a nuevos visitantes 
-                            que no conocen la ciudad y buscan el plan perfecto que les estás proponiendo. 
+                            Accede al público que no llegas a través de tus canales.
+                            DNightUp es el escaparate perfecto para atraer a nuevos visitantes
+                            que no conocen la ciudad y buscan el plan perfecto que les estás proponiendo.
                         </p>
                     </article>
                     <article class="glass rounded-2xl p-5">
@@ -318,10 +346,10 @@
                             </div>
                             <div>
                                 <h3 class="text-sm font-semibold text-dnu-ocre">
-                                    Añade tu local 
+                                    Añade tu local
                                 </h3>
                                 <p class="text-sm text-slate-200">
-                                    Solicita tu cuenta de administrador para poder añadir tus locales. 
+                                    Solicita tu cuenta de administrador para poder añadir tus locales.
                                 </p>
                             </div>
                         </li>
@@ -331,10 +359,10 @@
                             </div>
                             <div>
                                 <h3 class="text-sm font-semibold text-dnu-ocre">
-                                    Crea los eventos de cada local 
+                                    Crea los eventos de cada local
                                 </h3>
                                 <p class="text-sm text-slate-200">
-                                    Crea tus eventos en cuestión de minutos.Públicalos y programa 
+                                    Crea tus eventos en cuestión de minutos. Públicalos y programa
                                     una notificación para informar a todos tus seguidores.
                                     Todo desde la app.
                                 </p>
@@ -351,8 +379,8 @@
                                 <p class="text-sm text-slate-200">
                                     Valida accesos en puerta con QR, controla la asistencia
                                     real y aprende qué eventos y qué tipo de público te
-                                    funcionan mejor. Si no tienes personal en puerta también 
-                                    hay disponble una función de autoregistro. 
+                                    funcionan mejor. Si no tienes personal en puerta también
+                                    hay disponible una función de autoregistro.
                                 </p>
                             </div>
                         </li>
@@ -384,7 +412,7 @@
                         <p class="text-sm text-slate-200">
                             Tus eventos aparecen ordenados por fecha en un reel visual con fotos y vídeos,
                             fácil de explorar y pensado para la forma en que hoy se
-                            consume contenido. También con posiblidad de verlo en un mapa en el que aparece
+                            consume contenido. También con posibilidad de verlo en un mapa en el que aparece
                             ordenado por proximidad con relación a la ubicación del usuario.
                         </p>
                     </article>
@@ -401,7 +429,7 @@
                             Asistencia y notificaciones
                         </h3>
                         <p class="text-sm text-slate-200">
-                            Pueden marcar con antelación tu interés en asistir para que otros lo vean, 
+                            Pueden marcar con antelación tu interés en asistir para que otros lo vean,
                             y también conocer la asistencia real en la fiesta. Además de recibir notificaciones
                             cuando lanzas nuevos eventos y no perderse nada de lo que pasa
                             en tu local.
@@ -419,7 +447,6 @@
                     </article>
                 </div>
             </section>
-
 
             <!-- CTA + Formulario -->
             <section id="contacto"
@@ -536,7 +563,6 @@
                     <a href="#" class="hover:text-dnu-ocre-soft">Aviso legal</a>
                     <a href="#" class="hover:text-dnu-ocre-soft">Política de privacidad</a>
                     <a href="#" class="hover:text-dnu-ocre-soft">Política de cookies</a>
-                    <!-- Cuando tengas redes, añade enlaces aquí -->
                     <!-- <a href="#" class="hover:text-dnu-ocre-soft">Instagram</a> -->
                 </div>
             </div>
